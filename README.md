@@ -54,19 +54,20 @@ Program.cs       -> Entry point & konfigurasi (Identity, JWT, CORS, Swagger)
 
 ## Endpoint Utama
 
-| Method | Endpoint | Keterangan | Butuh Auth |
-|---|---|---|---|
-| POST | `/api/auth/register` | Daftar akun baru | Tidak |
-| POST | `/api/auth/login` | Login, dapat JWT token | Tidak |
-| GET | `/api/products` | List produk (filter `category`, `search`) | Tidak |
-| GET | `/api/products/{id}` | Detail produk | Tidak |
-| POST | `/api/products` | Tambah produk baru | Ya |
-| POST | `/api/orders/checkout` | Buat pesanan dari keranjang | Ya |
-| GET | `/api/orders` | Riwayat pesanan user yang login | Ya |
+| Method | Endpoint               | Keterangan                                | Butuh Auth |
+| ------ | ---------------------- | ----------------------------------------- | ---------- |
+| POST   | `/api/auth/register`   | Daftar akun baru                          | Tidak      |
+| POST   | `/api/auth/login`      | Login, dapat JWT token                    | Tidak      |
+| GET    | `/api/products`        | List produk (filter `category`, `search`) | Tidak      |
+| GET    | `/api/products/{id}`   | Detail produk                             | Tidak      |
+| POST   | `/api/products`        | Tambah produk baru                        | Ya         |
+| POST   | `/api/orders/checkout` | Buat pesanan dari keranjang               | Ya         |
+| GET    | `/api/orders`          | Riwayat pesanan user yang login           | Ya         |
 
 ## Konfigurasi
 
 Salin nilai di `appsettings.json` sesuai environment Anda, terutama:
+
 - `ConnectionStrings:DefaultConnection` — koneksi ke SQL Server
 - `Jwt:Key` — secret untuk sign token (**ganti** sebelum deploy produksi)
 
@@ -80,5 +81,4 @@ secret, bukan langsung di `appsettings.json`. Detail lengkap ada di `LEARNING-NO
 
 ## Status
 
-Proyek portofolio/demo — dibangun untuk latihan full-stack (backend API, web, mobile,
-Docker, CI/CD).
+MIT — bebas dipakai sebagai referensi untuk project Anda sendiri.
