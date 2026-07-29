@@ -1,0 +1,13 @@
+# .NET
+bin/
+obj/
+*.user
+.vs/
+
+# Secrets lokal (jangan sampai ke-commit)
+appsettings.Development.json
+**/appsettings.Local.json
+
+# OS
+.DS_Store
+Thumbs.db
