@@ -76,9 +76,9 @@ secret, bukan langsung di `appsettings.json`. Detail lengkap ada di `LEARNING-NO
 
 ## Project Terkait
 
-- **Web Storefront** — React, konsumsi API ini untuk browsing & checkout
-- **Mobile App** — React Native (Android), shopping experience + notifikasi flash-sale
+- **[Clearance Web](https://github.com/wiwinwidiaaan/clearance-web)** — web storefront (React), konsumsi API ini untuk browsing & checkout
+- **[Clearance Mobile](https://github.com/wiwinwidiaaan/clearance-mobile)** — mobile app (React Native/Android), shopping experience + notifikasi flash-sale
 
-## Status
+## Lisensi
 
 MIT — bebas dipakai sebagai referensi untuk project Anda sendiri.
