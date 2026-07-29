@@ -1,0 +1,61 @@
+name: CI/CD - Clearance API
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout kode
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Restore dependencies
+        run: dotnet restore ClearanceAPI.csproj
+
+      - name: Build
+        run: dotnet build ClearanceAPI.csproj --no-restore --configuration Release
+
+      - name: Run unit tests
+        run: dotnet test --no-build --configuration Release --verbosity normal
+        continue-on-error: false
+        # Catatan: butuh project test terpisah (mis. ClearanceAPI.Tests) agar step ini benar-benar menguji kode.
+
+  build-docker-image:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Checkout kode
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image (belum push)
+        run: docker build -t clearance-api:${{ github.sha }} .
+
+      # --- Langkah di bawah ini contoh TEORI untuk push & deploy, sengaja di-nonaktifkan ---
+      # Uncomment dan isi secrets di repo Settings > Secrets jika sudah siap deploy sungguhan.
+      #
+      # - name: Login ke Docker Hub / ECR
+      #   uses: docker/login-action@v3
+      #   with:
+      #     username: ${{ secrets.DOCKERHUB_USERNAME }}
+      #     password: ${{ secrets.DOCKERHUB_TOKEN }}
+      #
+      # - name: Push image
+      #   run: docker push yourrepo/clearance-api:${{ github.sha }}
+      #
+      # - name: Deploy ke AWS/GCP
+      #   run: echo "Trigger deployment step (ECS/Cloud Run/dsb) di sini"
