@@ -47,6 +47,7 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorization();
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddHostedService<OrderStatusSimulatorService>();
 
 // ---- CORS: izinkan web (React) & mobile (React Native) memanggil API ----
 builder.Services.AddCors(options =>
@@ -80,5 +81,12 @@ app.UseCors("AllowClients");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+
+// ---- Seed data contoh (hanya jika tabel Products masih kosong) ----
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    await DbSeeder.SeedAsync(db);
+}
 
 app.Run();
