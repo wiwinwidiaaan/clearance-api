@@ -18,8 +18,9 @@ mobile app (React Native).
 
 - 🔐 Register & login dengan JWT Bearer token
 - 📦 Katalog produk dengan kategori, kondisi barang (baru/overstock/retur/refurbished), dan pencarian
-- 🏷️ Manajemen diskon, termasuk flash-sale dengan periode aktif
+- 🏷️ Diskon & flash-sale otomatis diterapkan ke harga produk sesuai periode aktif
 - 🛒 Checkout dengan validasi stok real-time (pakai database transaction, aman dari race condition)
+- 🚚 Status pesanan yang bergerak otomatis (Pending → Processing → Shipped → Delivered) via background service
 - 📋 Riwayat pesanan per user
 
 ## Menjalankan Secara Lokal
@@ -46,8 +47,8 @@ dotnet run
 Controllers/     -> AuthController, ProductsController, OrdersController
 Models/          -> Product, Inventory, Discount, Order, OrderItem, ApplicationUser
 DTOs/            -> Data transfer object (request/response API)
-Data/            -> AppDbContext (EF Core)
-Services/        -> TokenService (generate JWT)
+Data/            -> AppDbContext (EF Core), DbSeeder (isi data produk contoh)
+Services/        -> TokenService (generate JWT), OrderStatusSimulatorService (simulasi progres pesanan)
 Migrations/      -> EF Core migration history
 Program.cs       -> Entry point & konfigurasi (Identity, JWT, CORS, Swagger)
 ```
